@@ -16,12 +16,12 @@ Assume that the [ActiveRecord](orm/ActiveRecord.php) base class contains a worki
 
 The [DownloadLog](orm/DownloadLog.php) model represents a log entry denoting a user (identified by a `user_id`) downloading a file (identified by `file_id`).
 
-#### Questions:
+### Questions:
 
 1. What does the `final` keyword mean the [DownloadLog](orm/DownloadLog.php) model? What are the implications in removing the `final` declaration?
 2. The current of implementation of [DownloadLog](orm/DownloadLog.php) contains a fatal error. What is it, and how would it be resolved?
 
-#### Coding task 1:
+### Coding task 1:
 
 Extend the current implementation so that the following code block provides the output as described:
 
@@ -42,17 +42,17 @@ UserId is: 2000
 Destroying DownloadLog
 ```
 
-#### Coding task 2:
+### Coding task 2:
 
 Create a `trait` which validates that a value is numeric. Add this `trait` to [DownloadLog](orm/DownloadLog.php) and use it to validate that `user_id` and `file_id` values are numeric. If they are not, throw an exception.
 
 ## Task 2: Web application controller implementation
 
-#### Introduction
+### Introduction
 
 This task outlines some requirements for a one or more base classes that provide controller functionality as commonly found in MVC-style web application frameworks.
 
-#### Assumptions:
+### Assumptions:
 
 There is an existing web application framework that:
 
@@ -63,11 +63,11 @@ There is an existing web application framework that:
 * The `request` object is an abstraction of an HTTP request and includes things like the URI, HTTP method, query parameters, POST body, HTTP request headers etc.
 * The `response` object is an abstraction of an HTTP response and includes things like HTTP response code, response body and HTTP response headers.
 
-#### Requirements
+### Requirements
 
 The web application framework should provide functionality for handling HTTP requests that output both HTML web pages as well as JSON-encoded data responses (as commonly found in REST APIs, for example).
 
-#### Coding task
+### Coding task
 
 Create one or more base classes that can be integrated into the existing web application framework and provide the following functionality as outlined below.
 
