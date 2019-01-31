@@ -57,11 +57,11 @@ This task outlines some requirements for a one or more base classes that provide
 There is an existing web application framework that:
 
 * Bootstraps an incoming request via a router.
-* The router dispatches the request to a controller via a defined entry point.
-* The controller entry point expects a `request` and `response` objects as parameters.
-* The controller entry point returns a modified `response` object.
-* The `request` object is an abstraction of an HTTP request and includes things like the URI, HTTP method, query parameters, POST body, HTTP request headers etc.
-* The `response` object is an abstraction of an HTTP response and includes things like HTTP response code, response body and HTTP response headers.
+* The router dispatches the request to a controller via a defined entry point method called `execute`.
+* The controller `execute` method expects `request` and `response` objects as parameters.
+* The `request` object implements the [Psr\Http\Message\ServerRequestInterface](https://github.com/php-fig/http-message/blob/master/src/ServerRequestInterface.php) interface.
+* The `response` object implements the [Psr\Http\Message\ResponseInterface](https://github.com/php-fig/http-message/blob/master/src/ResponseInterface.php) interface.
+* The controller `execute` method returns a modified `response` object.
 
 ### Requirements
 
@@ -71,11 +71,12 @@ The web application framework should provide functionality for handling HTTP req
 
 Create one or more base classes that can be integrated into the existing web application framework and provide the following functionality as outlined below.
 
-You need not provide a concrete implementation of the base class(es) but can do so if it helps describes the base implementation.
-
 *Functional requirements*
 
-* Functionality to return an HTML response body along with any valid HTTP response code.
-* Functionality to return a JSON response body along with any valid HTTP response code.
-* Functionality to incrementally build up a JSON response body.
+* Functionality to return an HTML response body along with any valid HTTP response codes and/or response headers.
+* Functionality to return a JSON response body along with any valid HTTP response codes and/or response headers.
 * Generic functionality to validate input parameters for a PUT or POST request.
+
+You need not provide a concrete implementation of the base class(es) but can do so if it helps describes the base implementation.
+
+You do *not* need to create concrete implementations of the `request` and `reponse` objects. Assume that these have been created and conform to the relevant interfaces as mentioned above.
