@@ -1,6 +1,7 @@
 <?php
 
 namespace Orm;
+use \Exception;
 
 trait ValueTypeChecker{
     public function isNumber($value){
