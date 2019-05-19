@@ -1,11 +1,13 @@
 <?php
 
-$SAMPLE_RESPONSE_HTML = "<p>success</p>";
-$SAMPLE_RESPONSE_JSON = json_encode(array('response' => "success"));
+const $SAMPLE_RESPONSE_HTML = "<p>success</p>";
+const $SAMPLE_RESPONSE_JSON = json_encode(array('response' => "success"));
 
-$HEADER_CONTENT_TYPE = "Content/Type";
-$CONTENT_TYPE_HTML = "text/html";
-$CONTENT_TYPE_JSON = "application/json";
+const $HEADER_CONTENT_TYPE = "Content/Type";
+const $CONTENT_TYPE_HTML = "text/html";
+const $CONTENT_TYPE_JSON = "application/json";
+const $STATUS_REASON_400 = "Bad Request";
+const $STATUS_REASON_200 = "OK";
 
 function execute($request, $response){
     switch($request->get_method()){
@@ -14,7 +16,7 @@ function execute($request, $response){
             if(areAttributesValid($request)){
                 handleRequest($request, $response)
             }else{
-                $response->withStatus(400, "Bad Request");
+                $response->withStatus(400, $STATUS_REASON_400);
             }
             break;
         case "GET":
@@ -22,7 +24,7 @@ function execute($request, $response){
             break;
         // other request types can be added as needed
         default:
-            $response->withStatus(400, "Bad Request");
+            $response->withStatus(400, $STATUS_REASON_400);
     }
     return $response;
 }
@@ -32,18 +34,21 @@ function handleRequest($request, &$response){
         case $CONTENT_TYPE_JSON:
             $response->getBody()->write($SAMPLE_RESPONSE_JSON);
             $response->withHeader($HEADER_CONTENT_TYPE, $CONTENT_TYPE_JSON);
+            $response->withStatus(200, $STATUS_REASON_200);
             break;
         case $CONTENT_TYPE_HTML:
             $response->getBody()->write($SAMPLE_RESPONSE_HTML);
             $response->withHeader($HEADER_CONTENT_TYPE, $CONTENT_TYPE_HTML);
+            $response->withStatus(200, $STATUS_REASON_200);
             break;
+        // other content types can be added as needed
         default:
-            echo "This content type cannot be handled";
+            $response->withStatus(400, $STATUS_REASON_400);
     }
-    $response->withStatus(200, "OK");
 }
 
 function areAttributesValid($request) : bool{
+    // checks if all values are numeric (example validation).
     foreach($request->getAttributes() as $key => $value){
         if(!is_numeric($value)) return false;
     }
