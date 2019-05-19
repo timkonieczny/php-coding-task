@@ -14,6 +14,8 @@ use ActiveRecordInterface;
  */
 abstract class ActiveRecord implements ActiveRecordInterface
 {
+    use ValueTypeChecker;
+
     protected $isModified = false;
 
     /**
@@ -28,6 +30,8 @@ abstract class ActiveRecord implements ActiveRecordInterface
 
     protected function setField(&$field, $value): void
     {
+        $this->isNumber($value);    // Throws exception if $value is not numeric
+
         if($value != $field){
 
             $field = $value;
