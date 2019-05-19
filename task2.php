@@ -13,11 +13,10 @@ function execute($request, $response){
     switch($request->get_method()){
         case "PUT":
         case "POST":
-            if(areAttributesValid($request)){
+            if(areAttributesValid($request))
                 handleRequest($request, $response)
-            }else{
+            else
                 $response->withStatus(400, $STATUS_REASON_400);
-            }
             break;
         case "GET":
             handleRequest($request, $response)
@@ -32,9 +31,12 @@ function execute($request, $response){
 function handleRequest($request, &$response){ 
     switch($request->getHeader($HEADER_CONTENT_TYPE)){
         case $CONTENT_TYPE_JSON:
-            $response->getBody()->write($SAMPLE_RESPONSE_JSON);
-            $response->withHeader($HEADER_CONTENT_TYPE, $CONTENT_TYPE_JSON);
-            $response->withStatus(200, $STATUS_REASON_200);
+            if(json_decode($request)!=null){    // basic JSON validation
+                $response->getBody()->write($SAMPLE_RESPONSE_JSON);
+                $response->withHeader($HEADER_CONTENT_TYPE, $CONTENT_TYPE_JSON);
+                $response->withStatus(200, $STATUS_REASON_200);
+            }else
+                $response->withStatus(400, $STATUS_REASON_400);
             break;
         case $CONTENT_TYPE_HTML:
             $response->getBody()->write($SAMPLE_RESPONSE_HTML);
@@ -49,8 +51,7 @@ function handleRequest($request, &$response){
 
 function areAttributesValid($request) : bool{
     // checks if all values are numeric (example validation).
-    foreach($request->getAttributes() as $key => $value){
+    foreach($request->getAttributes() as $key => $value)
         if(!is_numeric($value)) return false;
-    }
     return true;
 }
