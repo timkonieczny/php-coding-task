@@ -25,4 +25,18 @@ abstract class ActiveRecord implements ActiveRecordInterface
     {
         // Assume a full working implementation
     }
+
+    protected function setField(&$field, $value): void
+    {
+        if($value != $field){
+
+            $field = $value;
+            $this->isModified = true;
+        }        
+    }
+
+    public function destroy(): void
+    {
+        // TODO: destroy row in DB
+    }
 }
