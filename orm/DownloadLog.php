@@ -21,12 +21,12 @@ final class DownloadLog extends ActiveRecord
     }
 
     public function setFileId($id){
-        $this->setField($this->fileId, $id);
+        $this->setNumericField($this->fileId, $id);
         return $this;
     }
 
     public function setUserId($id){
-        $this->setField($this->userId, $id);
+        $this->setNumericField($this->userId, $id);
         return $this;
     }
 

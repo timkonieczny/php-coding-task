@@ -28,7 +28,7 @@ abstract class ActiveRecord implements ActiveRecordInterface
         // Assume a full working implementation
     }
 
-    protected function setField(&$field, $value): void
+    protected function setNumericField(&$field, $value): void
     {
         $this->isNumber($value);    // Throws exception if $value is not numeric
 

@@ -28,6 +28,7 @@ function execute($request, $response){
     return $response;
 }
 
+// Takes requests and generates responses. 
 function handleRequest($request, &$response){ 
     switch($request->getHeader($HEADER_CONTENT_TYPE)){
         case $CONTENT_TYPE_JSON:
@@ -49,8 +50,8 @@ function handleRequest($request, &$response){
     }
 }
 
+// checks if all values are numeric (exemplary validation).
 function areAttributesValid($request) : bool{
-    // checks if all values are numeric (example validation).
     foreach($request->getAttributes() as $key => $value)
         if(!is_numeric($value)) return false;
     return true;
